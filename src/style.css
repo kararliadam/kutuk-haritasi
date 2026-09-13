@@ -6,7 +6,6 @@
   --line: #d8d2c6;
   --accent: #3d2a1c;
   --on-accent: #f7f3ee;
-  --hover: #1d1a17;
   --halo: #fffdf8;
   --field: #fff;
   --hover-fill: #f3eee3;
@@ -38,7 +37,6 @@
   --line: #3a3630;
   --accent: #dcc49a;
   --on-accent: #1d1a17;
-  --hover: #f3efe8;
   --halo: #1e1c18;
   --field: #161411;
   --hover-fill: #2a2722;
@@ -173,14 +171,6 @@ body {
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--accent);
-}
-
-.lede {
-  max-width: 52ch;
-  margin: 0;
-  font-size: 0.95rem;
-  line-height: 1.45;
-  color: var(--muted);
 }
 
 .toolbar {
