@@ -63,6 +63,7 @@ const ZOOM_MIN = 1;
 const ZOOM_MAX = 8;
 const MOBILE_BREAK = 880;
 const MOBILE_ZOOM = 1.7;
+const LABEL_ZOOM = 0.45;
 
 let mapView = null;
 
@@ -314,7 +315,7 @@ function nameMinArea() {
 
 function applyLabelScale(k) {
   if (!mapView) return;
-  const s = 1 / k;
+  const s = 1 / k ** (1 - LABEL_ZOOM);
   const min = nameMinArea();
   mapView.labelG.selectAll(":scope > g").each(function () {
     const area = Number(this.dataset.area);
