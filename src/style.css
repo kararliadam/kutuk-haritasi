@@ -792,9 +792,40 @@ body.map-full {
     min-height: 320px;
   }
 
+  .map-zoom {
+    position: static;
+    flex-direction: row;
+    width: fit-content;
+    margin: 10px 0 0 auto;
+  }
+
   .map-zoom button {
     width: 40px;
     height: 40px;
+  }
+
+  .map-zoom button + button {
+    border-top: 0;
+    border-left: 1px solid var(--line);
+  }
+
+  .map-panel.is-fullscreen .map-zoom,
+  .map-panel:fullscreen .map-zoom,
+  .map-panel:-webkit-full-screen .map-zoom {
+    position: absolute;
+    top: auto;
+    right: 12px;
+    bottom: 12px;
+    left: auto;
+    flex-direction: column;
+    margin: 0;
+  }
+
+  .map-panel.is-fullscreen .map-zoom button + button,
+  .map-panel:fullscreen .map-zoom button + button,
+  .map-panel:-webkit-full-screen .map-zoom button + button {
+    border-top: 1px solid var(--line);
+    border-left: 0;
   }
 
   .header h1 {
