@@ -55,14 +55,20 @@
             </button>
             <div class="year-readout">
               <label class="year-label" for="year">Yıl</label>
-              <span id="year-display" class="year-display"></span>
+              <span id="year-display" class="year-display">2025</span>
             </div>
-            <button type="button" id="year-next" class="year-step" aria-label="Sonraki yıl">
+            <button type="button" id="year-next" class="year-step" aria-label="Sonraki yıl" disabled>
               ›
             </button>
           </div>
-          <input id="year" type="range" />
-          <div id="year-buttons" class="years" role="tablist" aria-label="Yıl"></div>
+          <input id="year" type="range" min="2008" max="2025" step="1" value="2025" />
+          <div id="year-buttons" class="years" role="tablist" aria-label="Yıl">
+            <button type="button" class="year" data-year="2008">2008</button>
+            <button type="button" class="year" data-year="2012">2012</button>
+            <button type="button" class="year" data-year="2016">2016</button>
+            <button type="button" class="year" data-year="2020">2020</button>
+            <button type="button" class="year is-active" data-year="2025">2025</button>
+          </div>
         </div>
         <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Koyu görünüme geç">
           <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true">
@@ -87,14 +93,25 @@
             <div id="map" aria-label="Türkiye il haritası"></div>
             <div class="map-zoom" role="group" aria-label="Harita yakınlaştırma">
               <button type="button" id="zoom-in" aria-label="Yakınlaştır">+</button>
-              <button type="button" id="zoom-out" aria-label="Uzaklaştır">−</button>
-              <button type="button" id="zoom-reset" aria-label="Yakınlaştırmayı sıfırla">↺</button>
+              <button type="button" id="zoom-out" aria-label="Uzaklaştır" disabled>−</button>
+              <button type="button" id="zoom-reset" aria-label="Yakınlaştırmayı sıfırla" disabled>↺</button>
               <button type="button" id="zoom-full" aria-label="Tam ekran" aria-pressed="false">
                 ⛶
               </button>
             </div>
           </div>
-          <div id="legend" class="legend"></div>
+          <div id="legend" class="legend">
+            <div class="legend-bar">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <div class="legend-labels">
+              <span>120.712 – 737.589</span>
+              <span>737.590 – 1.354.467</span>
+              <span>1.354.468 – 1.971.346</span>
+              <span>1.971.347 – 2.588.224</span>
+              <span>2.588.225 – 3.205.103</span>
+            </div>
+          </div>
           <div id="tooltip" class="tooltip" hidden></div>
         </section>
 
@@ -112,7 +129,7 @@
         <div class="footer-copy">
           <p class="copyright">© 2026 İbrahim Erdoğan</p>
           <p class="source">
-            <span id="source-year">Kaynak: TÜİK, Adrese Dayalı Nüfus Kayıt Sistemi.</span>
+            <span id="source-year">Kaynak: TÜİK, Adrese Dayalı Nüfus Kayıt Sistemi, 31 Aralık 2025.</span>
             Kütük nüfusu yalnızca T.C. vatandaşlarını; ikamet nüfusu yabancı
             uyruklular dahil tüm ADNKS nüfusunu kapsar.
           </p>

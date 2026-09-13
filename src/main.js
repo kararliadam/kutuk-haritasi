@@ -514,12 +514,14 @@ async function start() {
   yearInput.step = "1";
   yearInput.value = String(state.year);
 
-const yearTicks = years
-  .filter((y) => y === years[0] || y === years[years.length - 1] || y % 4 === 0)
-  .filter((y, _, ticks) => !(y === 2024 && ticks.includes(2025)));
-yearButtons.innerHTML = yearTicks
-  .map((year) => `<button type="button" class="year" data-year="${year}">${year}</button>`)
-  .join("");
+  if (!yearButtons.childElementCount) {
+    const yearTicks = years
+      .filter((y) => y === years[0] || y === years[years.length - 1] || y % 4 === 0)
+      .filter((y, _, ticks) => !(y === 2024 && ticks.includes(2025)));
+    yearButtons.innerHTML = yearTicks
+      .map((year) => `<button type="button" class="year" data-year="${year}">${year}</button>`)
+      .join("");
+  }
 
 yearInput.addEventListener("input", (event) => {
   setYear(event.target.value);
