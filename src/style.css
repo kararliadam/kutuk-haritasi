@@ -635,6 +635,7 @@ body.map-full {
 .ranking li {
   display: grid;
   grid-template-columns: 28px 1fr auto;
+  align-items: center;
   gap: 8px;
   padding: 8px 6px;
   border-bottom: 1px solid var(--line);
