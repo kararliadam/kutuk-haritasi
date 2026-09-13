@@ -66,19 +66,9 @@ const MOBILE_ZOOM = 1.7;
 const LABEL_ZOOM = 0.45;
 
 let mapView = null;
-
-const [geo, payload] = await Promise.all([
-  d3.json("./tr-provinces.geojson"),
-  d3.json("./data/provinces.json"),
-]);
-
-const years = payload.years;
-state.year = years[years.length - 1];
-
-const byCode = new Map(payload.provinces.map((p) => [p.code, p]));
-for (const feature of geo.features) {
-  feature.properties.meta = byCode.get(feature.properties.number);
-}
+let geo;
+let payload;
+let years;
 
 function formatNumber(n) {
   return Math.round(n).toLocaleString("tr-TR");
@@ -505,10 +495,24 @@ function shiftYear(delta) {
   if (i >= 0 && i < years.length) setYear(years[i]);
 }
 
-yearInput.min = String(years[0]);
-yearInput.max = String(years[years.length - 1]);
-yearInput.step = "1";
-yearInput.value = String(state.year);
+async function start() {
+  [geo, payload] = await Promise.all([
+    d3.json("./tr-provinces.geojson"),
+    d3.json("./data/provinces.json"),
+  ]);
+
+  years = payload.years;
+  state.year = years[years.length - 1];
+
+  const byCode = new Map(payload.provinces.map((p) => [p.code, p]));
+  for (const feature of geo.features) {
+    feature.properties.meta = byCode.get(feature.properties.number);
+  }
+
+  yearInput.min = String(years[0]);
+  yearInput.max = String(years[years.length - 1]);
+  yearInput.step = "1";
+  yearInput.value = String(state.year);
 
 const yearTicks = years
   .filter((y) => y === years[0] || y === years[years.length - 1] || y % 4 === 0)
@@ -632,4 +636,7 @@ new ResizeObserver(() => {
   renderLegend();
 }).observe(mapEl);
 
-render();
+  render();
+}
+
+start();
