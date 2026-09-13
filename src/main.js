@@ -293,9 +293,9 @@ function mapSize() {
 function defaultTransform(width, height) {
   if (width >= MOBILE_BREAK) return d3.zoomIdentity;
   return d3.zoomIdentity
-    .translate(width / 2, height / 2)
+    .translate(0, height / 2)
     .scale(MOBILE_ZOOM)
-    .translate(-width / 2, -height / 2);
+    .translate(0, -height / 2);
 }
 
 function syncZoomButtons(k) {
