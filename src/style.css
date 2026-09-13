@@ -513,12 +513,15 @@ body.map-full {
 .map-panel:-webkit-full-screen .map-frame {
   flex: 1;
   min-height: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .map-panel.is-fullscreen #map,
 .map-panel:fullscreen #map,
 .map-panel:-webkit-full-screen #map {
-  height: 100%;
+  flex: 1;
+  height: auto;
   min-height: 0;
 }
 
@@ -809,25 +812,6 @@ body.map-full {
     border-left: 1px solid var(--line);
   }
 
-  .map-panel.is-fullscreen .map-zoom,
-  .map-panel:fullscreen .map-zoom,
-  .map-panel:-webkit-full-screen .map-zoom {
-    position: absolute;
-    top: auto;
-    right: 12px;
-    bottom: 12px;
-    left: auto;
-    flex-direction: column;
-    margin: 0;
-  }
-
-  .map-panel.is-fullscreen .map-zoom button + button,
-  .map-panel:fullscreen .map-zoom button + button,
-  .map-panel:-webkit-full-screen .map-zoom button + button {
-    border-top: 1px solid var(--line);
-    border-left: 0;
-  }
-
   .header h1 {
     max-width: none;
   }
@@ -843,5 +827,10 @@ body.map-full {
 
   .year-display {
     font-size: 1.55rem;
+  }
+
+  .tooltip {
+    min-width: 0;
+    max-width: calc(100% - 20px);
   }
 }

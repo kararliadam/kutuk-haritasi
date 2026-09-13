@@ -277,10 +277,17 @@ function showTooltip(event, meta) {
   tooltip.hidden = false;
   tooltip.innerHTML = tooltipHtml(meta);
   const box = mapPanel.getBoundingClientRect();
-  const x = Math.min(event.clientX - box.left + 14, box.width - 280);
-  const y = Math.min(event.clientY - box.top + 14, box.height - 140);
-  tooltip.style.left = `${Math.max(8, x)}px`;
-  tooltip.style.top = `${Math.max(8, y)}px`;
+  const pad = 10;
+  const tipW = tooltip.offsetWidth;
+  const tipH = tooltip.offsetHeight;
+  const localX = event.clientX - box.left;
+  const localY = event.clientY - box.top;
+  const mobile = matchMedia(`(max-width: ${MOBILE_BREAK}px)`).matches;
+  let x = mobile ? localX - tipW / 2 : localX + 14;
+  let y = mobile ? localY - tipH - 16 : localY + 14;
+  if (!mobile && x + tipW > box.width - pad) x = localX - tipW - 14;
+  tooltip.style.left = `${Math.max(pad, Math.min(x, box.width - tipW - pad))}px`;
+  tooltip.style.top = `${Math.max(pad, Math.min(y, box.height - tipH - pad))}px`;
 }
 
 function hideTooltip() {
