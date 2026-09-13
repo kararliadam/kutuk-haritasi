@@ -308,11 +308,21 @@ function syncZoomButtons(k) {
   mapEl.classList.toggle("is-zoomed", k > 1.25);
 }
 
+function nameMinArea() {
+  return matchMedia(`(max-width: ${MOBILE_BREAK}px)`).matches ? 200 : 420;
+}
+
 function applyLabelScale(k) {
   if (!mapView) return;
   const s = 1 / k;
-  mapView.labelG.selectAll(":scope > g").attr("transform", function () {
-    return `translate(${this.dataset.x},${this.dataset.y}) scale(${s})`;
+  const min = nameMinArea();
+  mapView.labelG.selectAll(":scope > g").each(function () {
+    const area = Number(this.dataset.area);
+    const code = Number(this.dataset.code);
+    const show = ALWAYS_LABEL.has(code) || area * k * k >= min;
+    d3.select(this)
+      .attr("transform", `translate(${this.dataset.x},${this.dataset.y}) scale(${s})`)
+      .attr("display", show ? null : "none");
   });
 }
 
@@ -436,7 +446,6 @@ function drawMap() {
   for (const feature of geo.features) {
     const row = snapshot(feature.properties.meta);
     const area = Math.abs(view.path.area(feature));
-    if (area < 420 && !ALWAYS_LABEL.has(row.code)) continue;
     const [x, y] = view.path.centroid(feature);
     const [dx, dy] = OFFSETS[row.code] || [0, 0];
     const lx = x + dx;
@@ -445,6 +454,8 @@ function drawMap() {
       .append("g")
       .attr("data-x", lx)
       .attr("data-y", ly)
+      .attr("data-area", area)
+      .attr("data-code", row.code)
       .attr("transform", `translate(${lx},${ly})`);
     g.append("text").attr("class", "label-name").attr("y", area < 900 ? 3 : -3).text(row.name);
     if (area >= 900 || ALWAYS_LABEL.has(row.code)) {
