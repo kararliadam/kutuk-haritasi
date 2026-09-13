@@ -829,6 +829,10 @@ body.map-full {
     font-size: 1.55rem;
   }
 
+  #search {
+    font-size: 16px;
+  }
+
   .tooltip {
     min-width: 0;
     max-width: calc(100% - 20px);
