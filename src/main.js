@@ -614,6 +614,18 @@ if (!localStorage.getItem(THEME_KEY)) {
 
 syncThemeButton();
 
+const scrollTop = document.getElementById("scroll-top");
+window.addEventListener(
+  "scroll",
+  () => {
+    scrollTop.classList.toggle("is-visible", window.scrollY > 360);
+  },
+  { passive: true },
+);
+scrollTop.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
 new ResizeObserver(() => {
   if (!mapView) return;
   drawMap();

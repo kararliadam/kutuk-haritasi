@@ -87,6 +87,10 @@ body {
   font-family: "Avenir Next", system-ui, sans-serif;
 }
 
+.scroll-top {
+  display: none;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -837,5 +841,35 @@ body.map-full {
   .tooltip {
     min-width: 0;
     max-width: calc(100% - 20px);
+  }
+
+  .scroll-top {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    z-index: 30;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    color: var(--ink);
+    font: inherit;
+    font-size: 1.2rem;
+    line-height: 1;
+    border-radius: var(--radius-sm);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .scroll-top.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  body.map-full .scroll-top {
+    display: none;
   }
 }
