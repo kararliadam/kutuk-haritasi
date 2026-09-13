@@ -416,6 +416,7 @@ function ensureMap() {
     .on("zoom", applyZoom);
 
   svg.call(zoom);
+  svg.on("dblclick.zoom", null);
   svg.on("click", () => hideTooltip());
   mapView = { svg, layers, provinceG, labelG, zoom, path, width, height };
   svg.call(zoom.transform, kept && kept.k ? kept : defaultTransform(width, height));
@@ -554,6 +555,16 @@ ranking.addEventListener("click", (event) => {
   state.selected = Number(item.dataset.code);
   render();
 });
+
+document.addEventListener(
+  "wheel",
+  (event) => {
+    if (event.ctrlKey) event.preventDefault();
+  },
+  { passive: false },
+);
+document.addEventListener("gesturestart", (event) => event.preventDefault());
+document.addEventListener("gesturechange", (event) => event.preventDefault());
 
 document.querySelector(".map-zoom").addEventListener("mousedown", (event) => {
   event.preventDefault();
