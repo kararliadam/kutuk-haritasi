@@ -709,6 +709,53 @@ body.map-full {
     padding: 20px 16px 36px;
   }
 
+  .toolbar {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 16px 10px;
+  }
+
+  .toolbar::before {
+    display: none;
+  }
+
+  .modes {
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
+  }
+
+  .mode {
+    flex: 1;
+    padding: 8px 6px;
+    font-size: 0.8rem;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .mode-extra {
+    display: none;
+  }
+
+  .toolbar .theme-toggle {
+    grid-column: 2;
+    grid-row: 1;
+    margin-left: 0;
+  }
+
+  .year-wrap {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    min-width: 0;
+    flex: none;
+    max-width: none;
+  }
+
+  .year-stepper {
+    justify-content: center;
+  }
+
   .layout {
     grid-template-columns: 1fr;
   }
@@ -752,6 +799,11 @@ body.map-full {
 
   .header h1 {
     max-width: none;
+  }
+
+  .legend-labels span {
+    flex: 0 1 auto;
+    max-width: 46%;
   }
 
   .legend-labels span:not(:first-child):not(:last-child) {

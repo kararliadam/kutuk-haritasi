@@ -210,9 +210,25 @@ function renderChrome() {
 function renderLegend() {
   const scale = colorScale(state.mode);
   const items = legendBreaks(scale, state.mode);
-  legend.innerHTML = `<div class="legend-bar">${items
+  const compact = matchMedia(`(max-width: ${MOBILE_BREAK}px)`).matches;
+  const labels = compact
+    ? items.map((item, i) => {
+        if (i !== 0 && i !== items.length - 1) return item;
+        if (state.mode === "kutuk") {
+          const [min, max] = scale.domain();
+          const text =
+            i === 0 ? formatNumber(Math.round(min)) : formatNumber(Math.round(max));
+          return { ...item, text };
+        }
+        if (state.mode === "fark") {
+          return { ...item, text: i === 0 ? "Göç alan" : "Göç veren" };
+        }
+        return item;
+      })
+    : items;
+  legend.innerHTML = `<div class="legend-bar">${labels
     .map((item) => `<span style="background:${item.color}"></span>`)
-    .join("")}</div><div class="legend-labels">${items
+    .join("")}</div><div class="legend-labels">${labels
     .map((item) => `<span>${item.text}</span>`)
     .join("")}</div>`;
 }
@@ -382,6 +398,7 @@ function ensureMap() {
     .on("zoom", applyZoom);
 
   svg.call(zoom);
+  svg.on("click", () => hideTooltip());
   mapView = { svg, layers, provinceG, labelG, zoom, path, width, height };
   svg.call(zoom.transform, kept && kept.k ? kept : defaultTransform(width, height));
   return mapView;
@@ -405,15 +422,14 @@ function drawMap() {
     .on("pointermove", (event, d) => {
       showTooltip(event, d.properties.meta);
     })
-    .on("pointerleave", hideTooltip)
+    .on("pointerleave", (event) => {
+      if (event.pointerType === "touch") return;
+      hideTooltip();
+    })
     .on("click", (event, d) => {
       if (event.defaultPrevented) return;
-      state.selected = d.properties.number;
-      hideTooltip();
-      render();
-      ranking.querySelector(`[data-code="${d.properties.number}"]`)?.scrollIntoView({
-        block: "nearest",
-      });
+      event.stopPropagation();
+      showTooltip(event, d.properties.meta);
     });
 
   view.labelG.selectAll("*").remove();
@@ -571,6 +587,7 @@ syncThemeButton();
 new ResizeObserver(() => {
   if (!mapView) return;
   drawMap();
+  renderLegend();
 }).observe(mapEl);
 
 render();
