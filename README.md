@@ -1,5 +1,7 @@
 # Herkes kendi ilinde yaşasaydı
 
+![Türkiye Kütük Haritası, 2025 kütük nüfusu](docs/screenshot.png)
+
 TÜİK Adrese Dayalı Nüfus Kayıt Sistemi verisiyle, herkes MERNİS’te aile kütüğünün kayıtlı olduğu ilde yaşasaydı 81 ilin nüfusunun nasıl görüneceğini gösteren statik bir harita.
 
 Bu sayı doğum yeri değildir. Kütük nüfusu yalnızca Türkiye’de ikamet eden T.C. vatandaşlarını kapsar. İkamet nüfusu ADNKS il nüfusudur ve yabancı uyrukluları da içerir.
