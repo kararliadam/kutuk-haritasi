@@ -570,17 +570,47 @@ body.map-full {
 }
 
 .footer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
   margin-top: 28px;
 }
 
+.footer-copy {
+  min-width: 0;
+}
+
+.copyright,
 .source {
-  margin: 0 auto;
-  max-width: 68ch;
-  text-align: center;
+  margin: 0;
+  text-align: left;
   font-size: 0.75rem;
-  font-style: italic;
   line-height: 1.5;
   color: var(--muted);
+}
+
+.source {
+  margin-top: 6px;
+  font-style: italic;
+}
+
+.footer-github {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  color: var(--muted);
+}
+
+.footer-github:hover {
+  color: var(--ink);
+}
+
+.footer-github svg {
+  width: 18px;
+  height: 18px;
 }
 
 .list-panel {
